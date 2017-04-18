@@ -1,0 +1,32 @@
+{
+  "name": "ivy-stories",
+  "version": "0.1.0",
+  "description": "an easier way to build interactive stories",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "rimraf ./build && tsc",
+    "lint": "tslint --force -c ./tslint.json src/**/*.ts",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blvdgroup/ivy.git"
+  },
+  "author": "blvd",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/blvdgroup/ivy/issues"
+  },
+  "homepage": "https://github.com/blvdgroup/ivy#readme",
+  "devDependencies": {
+    "@types/react": "^15.0.22",
+    "@types/react-dom": "^0.14.23",
+    "rimraf": "^2.6.1",
+    "tslint": "^5.1.0",
+    "tslint-eslint-rules": "^4.0.0",
+    "typescript": "^2.2.2"
+  },
+  "peerDependencies": {
+    "react": "^15.5.4"
+  }
+}
