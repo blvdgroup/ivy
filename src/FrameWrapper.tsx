@@ -35,8 +35,9 @@ const FrameWrapper = (props: FrameWrapperProps): JSX.Element => (
       left: '25px',
       zIndex: 20,
       position: 'absolute',
-      transition: 'all 0.5s ease-in',
-      background: 'white'
+      transition: 'bottom 0.5s ease-in',
+      background: 'white',
+      opacity: props.optionsVisible ? 1 : 0
     }}>
       <props.optionsComponent options={props.options} />
     </div>

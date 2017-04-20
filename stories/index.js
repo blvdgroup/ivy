@@ -31,8 +31,36 @@ const frame2 = (panel) => ({
   ]
 })
 
+const optsPanel = ({ options }) => (
+  <div
+    style={{
+      width: '100%',
+      height: '100%',
+      position: 'relative'
+    }}>
+    <div style={{
+      width: '100%',
+      top: '50%',
+      transform: 'translateY(-50%)',
+      position: 'absolute',
+      textAlign: 'center'
+    }}>
+      {options.map((o, i) => (
+        <span
+          style={{
+            margin: '0 10px'
+          }}
+          onClick={o.onSelect}
+          key={`option${i}`}>{o.text}</span>
+      ))}
+    </div>
+  </div>
+)
+
 storiesOf('Ivy', module)
-  .add('to Storybook', () => (
-    <Ivy 
-      initialFrame={frame1}/>
+  .add('default options panel', () => (
+    <Ivy initialFrame={frame1} />
+  ))
+  .add('custom options panel', () => (
+    <Ivy initialFrame={frame1} optionsPanel={optsPanel} />
   ));
