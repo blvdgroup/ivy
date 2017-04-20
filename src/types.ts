@@ -1,3 +1,5 @@
+import * as React from 'react'
+
 export type Action = () => (Promise<boolean> | void)
 
 export type Frame = (panel: Panel) => FrameOptions
@@ -18,3 +20,9 @@ export interface Panel {
   showOptions: () => Action,
   wait: (time: number) => Action
 }
+
+export interface OptionsPanelProps {
+  options: Option[]
+}
+
+export type OptionsPanelComponent = new () => React.Component<OptionsPanelProps, void>

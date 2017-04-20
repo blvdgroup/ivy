@@ -1,11 +1,14 @@
 import * as React from 'react'
 
-import { Action, Frame, FrameOptions } from './types'
+import { Action, Frame, FrameOptions, OptionsPanelComponent } from './types'
 import FrameWrapper from './FrameWrapper'
 import { timeout } from './utils'
+import DefaultOptionsPanel from './DefaultOptionsPanel'
 
 export interface IvyProps {
-  initialFrame: Frame
+  initialFrame: Frame,
+  optionsPanel?: OptionsPanelComponent,
+  style?: object
 }
 
 export interface IvyState {
@@ -27,28 +30,32 @@ class Ivy extends React.Component<IvyProps, IvyState> {
   }
 
   public componentDidMount(): void {
-    this.runTimeline().then(() => { console.log('Ran the mount timeline') })
+    this.runTimeline()
+      .then(() => { console.log('Ran the mount timeline') })
+      .catch(console.log)
   }
 
   public updateFrame(f: Frame): void {
     this.setState({
       frame: this.makeFrame(f),
+      optionsVisible: false,
       currentTimelineIndex: 0
     }, () => {
-      this.runTimeline()
+      this.runTimeline().catch(console.log)
     })
   }
 
   public render(): JSX.Element {
     return (
       <div style={{
+        ...(this.props.style || {}),
         width: '600px',
         height: '400px',
-        backgroundColor: 'green'
       }}>
         <FrameWrapper
           {...this.state.frame}
-          currentTimelineIndex={this.state.currentTimelineIndex} />
+          optionsVisible={this.state.optionsVisible}
+          optionsComponent={this.props.optionsPanel || DefaultOptionsPanel} />
       </div>
     )
   }
@@ -72,7 +79,7 @@ class Ivy extends React.Component<IvyProps, IvyState> {
     // equivalent to that promise but with the next item in the array attached via a then call
 
     // this stuff is to prevent two timelines running in parallel
-    const timelineId = Math.round(Math.random() * 10000).toString(16)
+    const timelineId = Math.round(Math.random() * 1000000000).toString(16)
     this.setState({ activeTimeline: timelineId })
     console.log('Kicking off timeline ' + timelineId)
 
@@ -102,7 +109,6 @@ class Ivy extends React.Component<IvyProps, IvyState> {
       })
       //                and if you don't love me now, you will never love me again
     }, Promise.resolve('i can stilllllll hear you sayin, you would never break the chain')) // (never break the chain)
-      .catch(console.log)
   }
 }
 
