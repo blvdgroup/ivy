@@ -1,6 +1,7 @@
 import React from 'react';
 import { storiesOf, action, linkTo } from '@kadira/storybook';
 import Ivy from '../src/index'
+import BuiltIvy from '../build/index'
 
 const frame1 = (panel) => ({
   background: () => (<span>panel 1</span>),
@@ -63,4 +64,7 @@ storiesOf('Ivy', module)
   ))
   .add('custom options panel', () => (
     <Ivy initialFrame={frame1} optionsPanel={optsPanel} />
+  ))
+  .add('built ivy', () => (
+    <BuiltIvy initialFrame={frame1} />
   ));
