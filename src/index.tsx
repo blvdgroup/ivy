@@ -8,7 +8,9 @@ import DefaultOptionsPanel from './DefaultOptionsPanel'
 export interface IvyProps {
   initialFrame: Frame,
   optionsPanel?: OptionsPanelComponent,
-  style?: object
+  style?: object,
+  width: string,
+  height: string
 }
 
 export interface IvyState {
@@ -49,8 +51,8 @@ class Ivy extends React.Component<IvyProps, IvyState> {
     return (
       <div style={{
         ...(this.props.style || {}),
-        width: '600px',
-        height: '400px',
+        width: (this.props.width || '600px'),
+        height: (this.props.height || '400px'),
       }}>
         <FrameWrapper
           {...this.state.frame}
