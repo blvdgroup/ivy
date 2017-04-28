@@ -32,6 +32,28 @@ const frame2 = (panel) => ({
   ]
 })
 
+let backgroundTimeout = false
+
+const eventFrame = (panel) => ({
+  background: ({ events }) => {
+    if(!backgroundTimeout) {
+      setTimeout(() => {
+        backgroundTimeout = true
+        console.log('background timeout')
+        events.emitEvent('finish-loader')
+      }, 2000)
+    }
+    return (<span>event frame</span>)
+  },
+  timeline: [
+    () => { console.log('Event Panel') },
+    () => { console.log('Awaiting finish-loader event.') },
+    panel.awaitEvent('finish-loader'),
+    () => { console.log('Proceeded past finish-loader event.') }
+  ],
+  options: []
+})
+
 const optsPanel = ({ options }) => (
   <div
     style={{
@@ -67,4 +89,7 @@ storiesOf('Ivy', module)
   ))
   .add('built ivy', () => (
     <BuiltIvy initialFrame={frame1} />
+  ))
+  .add('event test', () => (
+    <Ivy initialFrame={eventFrame} />
   ));
