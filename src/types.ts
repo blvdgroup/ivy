@@ -18,7 +18,9 @@ export interface FrameOptions {
 export interface Panel {
   go: (frame: Frame) => Action,
   showOptions: () => Action,
-  wait: (time: number) => Action
+  wait: (time: number) => Action,
+  awaitEvent: (evt: string) => Action,
+  emit: (evt: string) => Action
 }
 
 export interface OptionsPanelProps {

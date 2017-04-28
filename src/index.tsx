@@ -4,6 +4,7 @@ import { Action, Frame, FrameOptions, OptionsPanelComponent } from './types'
 import FrameWrapper from './FrameWrapper'
 import { timeout } from './utils'
 import DefaultOptionsPanel from './DefaultOptionsPanel'
+import * as EventHandler from 'ev-emitter' // ????
 
 export interface IvyProps {
   initialFrame: Frame,
@@ -17,17 +18,20 @@ export interface IvyState {
   frame: FrameOptions,
   optionsVisible: boolean,
   currentTimelineIndex: number,
-  activeTimeline: string
+  activeTimeline: string,
+  events: EventHandler
 }
 
 class Ivy extends React.Component<IvyProps, IvyState> {
   constructor(props: IvyProps) {
     super(props)
+    console.log(EventHandler)
     this.state = {
       frame: this.makeFrame(props.initialFrame),
       optionsVisible: false,
       currentTimelineIndex: 0,
-      activeTimeline: 'abc'
+      activeTimeline: 'abc',
+      events: new EventHandler()
     }
   }
 
@@ -56,6 +60,7 @@ class Ivy extends React.Component<IvyProps, IvyState> {
       }}>
         <FrameWrapper
           {...this.state.frame}
+          events={this.state.events}
           optionsVisible={this.state.optionsVisible}
           optionsComponent={this.props.optionsPanel || DefaultOptionsPanel} />
       </div>
@@ -69,7 +74,12 @@ class Ivy extends React.Component<IvyProps, IvyState> {
       wait: (num: number) => async (): Promise<boolean> => {
         await timeout(num)
         return true
-      }
+      },
+      awaitEvent: (evt: string) => async (): Promise<boolean> => {
+        await new Promise((resolve: () => any, reject: () => any) => { this.state.events.once(evt, resolve) })
+        return true
+      },
+      emit: (evt: string) => () => { this.state.events.emit(evt) }
     })
   }
 

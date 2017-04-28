@@ -1,10 +1,12 @@
 import * as React from 'react'
 
 import { FrameOptions, OptionsPanelComponent } from './types'
+import EventHandler from 'ev-emitter'
 
 export interface FrameWrapperProps extends FrameOptions {
   optionsVisible: boolean,
-  optionsComponent: OptionsPanelComponent
+  optionsComponent: OptionsPanelComponent,
+  events: EventHandler
 }
 
 const FrameWrapper = (props: FrameWrapperProps): JSX.Element => (
@@ -24,7 +26,7 @@ const FrameWrapper = (props: FrameWrapperProps): JSX.Element => (
       left: 0,
       zindex: 10
     }}>
-      <props.background />
+      <props.background events={props.events} />
     </div>
 
     {/* Options panel */}
