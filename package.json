@@ -1,6 +1,6 @@
 {
   "name": "ivy-stories",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "an easier way to build interactive stories",
   "main": "build/index.js",
   "scripts": {
