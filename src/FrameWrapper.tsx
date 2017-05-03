@@ -30,19 +30,19 @@ const FrameWrapper = (props: FrameWrapperProps): JSX.Element => (
     </div>
 
     {/* Options panel */}
-    <div style={{
-      height: '100px',
-      width: 'calc(100% - 50px)',
-      bottom: props.optionsVisible ? 0 : '-100px',
-      left: '25px',
-      zIndex: 20,
-      position: 'absolute',
-      transition: 'bottom 0.5s ease-in',
-      background: 'white',
-      opacity: props.optionsVisible ? 1 : 0
-    }}>
-      <props.optionsComponent options={props.options} />
-    </div>
+    <props.optionsComponent
+      defaultStyle={{
+        height: '100px',
+        width: 'calc(100% - 50px)',
+        bottom: props.optionsVisible ? 0 : '-100px',
+        left: '25px',
+        zIndex: 20,
+        position: 'absolute',
+        transition: 'bottom 0.5s ease-in',
+        background: 'white',
+        opacity: props.optionsVisible ? 1 : 0
+      }}
+      options={props.options} />
   </div>
 )
 

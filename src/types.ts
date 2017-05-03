@@ -24,7 +24,8 @@ export interface Panel {
 }
 
 export interface OptionsPanelProps {
-  options: Option[]
+  options: Option[],
+  defaultStyle: object
 }
 
 export type OptionsPanelComponent = new () => React.Component<OptionsPanelProps, void>
