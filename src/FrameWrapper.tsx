@@ -42,7 +42,8 @@ const FrameWrapper = (props: FrameWrapperProps): JSX.Element => (
         background: 'white',
         opacity: props.optionsVisible ? 1 : 0
       }}
-      options={props.options} />
+      options={props.options}
+      visible={props.optionsVisible} />
   </div>
 )
 
