@@ -20,7 +20,8 @@ export interface Panel {
   showOptions: () => Action,
   wait: (time: number) => Action,
   awaitEvent: (evt: string) => Action,
-  emit: (evt: string) => Action
+  emit: (evt: string) => Action,
+  gameOver: () => Action
 }
 
 export interface OptionsPanelProps {

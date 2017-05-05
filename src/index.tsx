@@ -79,7 +79,13 @@ class Ivy extends React.Component<IvyProps, IvyState> {
         await new Promise((resolve: () => any, reject: () => any) => { this.state.events.once(evt, resolve) })
         return true
       },
-      emit: (evt: string) => () => { this.state.events.emit(evt) }
+      emit: (evt: string) => () => { this.state.events.emit(evt) },
+      gameOver: () => async (): Promise<boolean> => {
+        await timeout(5000)
+        // TODO: Proper gameover screen (passed as prop?)
+        this.updateFrame(this.props.initialFrame)
+        return true
+      }
     })
   }
 
